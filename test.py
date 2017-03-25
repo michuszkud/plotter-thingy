@@ -21,6 +21,8 @@ class MotorControler:
         self.set_dir_pin(dir_pin)
         self.set_frequency(frequency)
 
+        self.setup_GPIO()
+
         self.pwm = None
         self.direction = 0
 
