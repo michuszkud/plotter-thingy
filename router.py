@@ -1,3 +1,7 @@
+import motor_controller
+import RPi.GPIO as GPIO
+import time
+
 
 def toImpulses(dist):
 	# units in mm
@@ -38,11 +42,11 @@ def step(l_dest, r_dest, l_cur, r_cur, time):
 	l_step = l_dest - l_cur
 	r_step = r_dest - r_cur
 
-	l_dir = l > 0
-	r_dir = r > 0
+	# l_dir = l > 0
+	# r_dir = r > 0
 
-	l_step = abs(l_step)
-	r_step = abs(r_step)
+	# l_step = abs(l_step)
+	# r_step = abs(r_step)
 
 	l_pulse = toImpulses(l_step)
 	r_pulse = toImpulses(r_step)
@@ -50,15 +54,33 @@ def step(l_dest, r_dest, l_cur, r_cur, time):
 	l_freq = l_pulse / time
 	r_freq = r_pulse / time
 
-	# move motors at frequencies
+	left.go(l_freq)
+	right.go(r_freq)
 
 	sleep(time)
 
+
+	left.stop()
+	right.stop()
 	#stop motors
 
 	return (l_dest, r_dest)
 
+X = [0, 0, 100, 100]
+Y = [0, 100, 100, 0]
+
+
+freq = 5000
 
 l_cur = 0
 r_cur = 0
+
+GPIO.setmode(GPIO.BOARD)
+
+left = MotorControler(35, 33, freq/3, "Left")
+right = MotorControler(37, 31, freq, "Right")
+
+for i in range(len(X)):
+	(l_cur, r_cur) = step(X[i], Y[i], l_cur, r_cur, 5)
+
 
