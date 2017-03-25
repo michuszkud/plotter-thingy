@@ -15,7 +15,8 @@ class MotorControler:
     
 
     def __init__(self, pwm_pin, dir_pin, frequency, name="Anon"):
-        
+
+        self.pwm = None;
         self.set_name(name)
         self.set_pwm_pin(pwm_pin)
         self.set_dir_pin(dir_pin)
@@ -62,7 +63,20 @@ class MotorControler:
         if DEBUG == 1:
             print "Setting the motor {0} controller frequenccy to {1}".format(self.name, freq)
 
-    
+    def setup_GPIO(self):
+
+        pins = (self.pwm_pin, self.dir_pin, self)
+        GPIO.setup(pins, GPIO.OUT)
+
+    def init_pwm(self):       
+
+        # if PWM was already initialised, stop it to avoid unexpected behaviour
+        if self.pwm is not None:
+            self.pwm.stop()
+
+        self.pwm = GPIO.PWM(self.pwm_pin, self.frequency)
+
+        
 
     
 
