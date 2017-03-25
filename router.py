@@ -8,7 +8,7 @@ def toImpulses(dist):
 	wheel_diameter = 28
 	impulses_per_rotation = 16*200
 
-	rotations = dist / (PI*wheel_diameter)
+	rotations = dist / (math.PI*wheel_diameter)
 
 	impulses = impulses_per_rotation * rotations
 
