@@ -1,14 +1,25 @@
 
 def toImpulses(dist):
-	wheel_diameter
-	pass
+	# units in mm
+	wheel_diameter = 28
+	impulses_per_rotation = 16*200
+
+	rotations = dist / (PI*wheel_diameter)
+
+	impulses = impulses_per_rotation * rotations
+
+	return impulses
+
 
 def translate(x, y):
-	width = 100.0
-	length = 100.0
 
-	x_offset = 10.0
-	y_offset = 10.0
+	#units in mm
+
+	width = 600
+	length = 1000
+
+	x_offset = 200
+	y_offset = 200
 
 	xL_tot = x + x_offset
 	yL_tot = y + y_offset
