@@ -123,8 +123,8 @@ dir_pin = 33
 
 GPIO.setmode(GPIO.BOARD)
 
-left = MotorControler(35, 33, freq, "Left")
-right = MotorControler(31, 37, freq, "Right")
+left = MotorControler(35, 33, freq/3, "Left")
+right = MotorControler(37, 31, freq, "Right")
 
 
 
@@ -153,5 +153,5 @@ right.stop()
 
 #pwm.stop()
 
-GPIO.cleanup()
+# GPIO.cleanup()
 
