@@ -58,7 +58,7 @@ class MotorControler:
         # limit the frequency to [0, max_freq] 
 
         freq = max(freq, 0)
-        freq = min(freq, max_freq)
+        freq = min(freq, self.max_freq)
 
         self.frequency = freq
 
@@ -75,7 +75,7 @@ class MotorControler:
         #TODO: add security stuuff
 
         self.direction = dir
-        GPIO.out(self.dir_pin, self.direction)
+        GPIO.output(self.dir_pin, self.direction)
 
     def init_pwm(self):       
 
@@ -87,7 +87,7 @@ class MotorControler:
 
     def go(self, speed = 0):
         
-        if frequency != 0:
+        if speed != 0:
             self.set_frequency(abs(speed))
 
         self.set_direction( 1 if speed > 0 else 0 )
