@@ -8,7 +8,7 @@ DEBUG = 1
 
 # class must suport:
 #  > seting up the I/O
-class MotorControler:
+class MotorController:
 
     # maximum frequency as required by the chip
     max_freq = 500e3

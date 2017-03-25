@@ -1,4 +1,4 @@
-import motor_controller
+import motor_controller as mc
 import RPi.GPIO as GPIO
 import time
 
@@ -77,8 +77,8 @@ r_cur = 0
 
 GPIO.setmode(GPIO.BOARD)
 
-left = MotorControler(35, 33, freq/3, "Left")
-right = MotorControler(37, 31, freq, "Right")
+left = mc.MotorController(35, 33, freq/3, "Left")
+right = mc.MotorController(37, 31, freq, "Right")
 
 for i in range(len(X)):
 	(l_cur, r_cur) = step(X[i], Y[i], l_cur, r_cur, 5)
