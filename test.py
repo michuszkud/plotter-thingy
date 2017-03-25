@@ -69,7 +69,7 @@ class MotorControler:
 
     def setup_GPIO(self):
 
-        pins = (self.pwm_pin, self.dir_pin, self)
+        pins = (self.pwm_pin, self.dir_pin)
         GPIO.setup(pins, GPIO.OUT)
 
     def set_direction(self, dir):
