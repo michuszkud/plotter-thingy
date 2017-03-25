@@ -16,11 +16,13 @@ class MotorControler:
 
     def __init__(self, pwm_pin, dir_pin, frequency, name="Anon"):
 
-        self.pwm = None;
         self.set_name(name)
         self.set_pwm_pin(pwm_pin)
         self.set_dir_pin(dir_pin)
         self.set_frequency(frequency)
+
+        self.pwm = None
+        self.direction = 0
 
         
 
@@ -68,17 +70,34 @@ class MotorControler:
         pins = (self.pwm_pin, self.dir_pin, self)
         GPIO.setup(pins, GPIO.OUT)
 
+    def set_direction(self, dir):
+
+        #TODO: add security stuuff
+
+        self.direction = dir
+        GPIO.out(self.dir_pin, self.direction)
+
     def init_pwm(self):       
 
         # if PWM was already initialised, stop it to avoid unexpected behaviour
         if self.pwm is not None:
-            self.pwm.stop()
+            self.stop()
 
         self.pwm = GPIO.PWM(self.pwm_pin, self.frequency)
 
-    def start(self, frequency = 0):
+    def go(self, speed = 0):
         
         if frequency != 0:
+            self.set_frequency(abs(speed))
+
+        self.set_direction( 1 if speed > 0 else 0 )
+        self.init_pwm()
+
+        self.pwm(start(50))
+
+    def stop(self):
+        self.pwm.stop()
+
 
 
 
@@ -101,9 +120,12 @@ freq = 1/t_min/1000
 step_pin = 35
 dir_pin = 33
 
-
-
 GPIO.setmode(GPIO.BOARD)
+
+left = MotorControler(35, 33, freq, "Left")
+right = MotorControler(31, 37, freq, "Right")
+
+
 
 # Pin numbering as on the breakout board
 # Looking at the board from top with USB facing downwards
@@ -111,14 +133,17 @@ GPIO.setmode(GPIO.BOARD)
 # PIN2 -> top right corner etc
 
 
-GPIO.setup(dir_pin, GPIO.OUT)
-GPIO.setup(step_pin, GPIO.OUT)
+# GPIO.setup(dir_pin, GPIO.OUT)
+# GPIO.setup(step_pin, GPIO.OUT)
 
 # Create new PWM instance
-pwm = GPIO.PWM(step_pin, freq)
+# pwm = GPIO.PWM(step_pin, freq)
 
 # start PWM with 50% duty cycle
-pwm.start(50)
+# pwm.start(50)
+
+left.go()
+right.go()
 
 time.sleep(3)
 
