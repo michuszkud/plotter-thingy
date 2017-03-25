@@ -5,15 +5,19 @@ import time
 DEBUG = 1
 
 # TODO add proper testing and cleanup stuff that im too bored to do
+
+# class must suport:
+#  > seting up the I/O
 class MotorControler:
 
     # maximum frequency as required by the chip
     max_freq = 500e3
     
 
-    def __init__(self, pwm_pin, dir_pin, frequency):
-        
-        self.set_name("Anon")
+    def __init__(self, pwm_pin, dir_pin, frequency, name="Anon"):
+
+        self.pwm = None;
+        self.set_name(name)
         self.set_pwm_pin(pwm_pin)
         self.set_dir_pin(dir_pin)
         self.set_frequency(frequency)
@@ -59,7 +63,20 @@ class MotorControler:
         if DEBUG == 1:
             print "Setting the motor {0} controller frequenccy to {1}".format(self.name, freq)
 
-    
+    def setup_GPIO(self):
+
+        pins = (self.pwm_pin, self.dir_pin, self)
+        GPIO.setup(pins, GPIO.OUT)
+
+    def init_pwm(self):       
+
+        # if PWM was already initialised, stop it to avoid unexpected behaviour
+        if self.pwm is not None:
+            self.pwm.stop()
+
+        self.pwm = GPIO.PWM(self.pwm_pin, self.frequency)
+
+        
 
     
 
