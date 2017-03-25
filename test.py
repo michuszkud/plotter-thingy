@@ -76,8 +76,19 @@ class MotorControler:
 
         self.pwm = GPIO.PWM(self.pwm_pin, self.frequency)
 
+    def start(self, frequency = 0):
         
+        if frequency != 0:
 
+
+
+# 31 33 35 37
+
+# l pwm >> 35
+# l dir -> 33
+
+# r dir >> 37
+# r pwm >> 31
     
 
 # PWM frequency in Hz
@@ -87,8 +98,8 @@ t_min = 2e-6
 
 freq = 1/t_min/1000
 
-step_pin = 37
-dir_pin = 3
+step_pin = 35
+dir_pin = 33
 
 
 
@@ -109,7 +120,7 @@ pwm = GPIO.PWM(step_pin, freq)
 # start PWM with 50% duty cycle
 pwm.start(50)
 
-time.sleep(60)
+time.sleep(3)
 
 pwm.stop()
 
