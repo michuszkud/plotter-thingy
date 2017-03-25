@@ -79,7 +79,7 @@ class MotorControler:
     def start(self, frequency = 0):
         
         if frequency != 0:
-
+            pass
 
 
 # 31 33 35 37
@@ -96,7 +96,7 @@ freq = 1
 
 t_min = 2e-6
 
-freq = 1/t_min/1000
+freq = 1/t_min/100
 
 step_pin = 35
 dir_pin = 33
