@@ -95,7 +95,7 @@ class MotorControler:
         self.set_direction( 1 if speed > 0 else 0 )
         self.init_pwm()
 
-        self.pwm(start(50))
+        self.pwm.start(50)
 
     def stop(self):
         self.pwm.stop()
