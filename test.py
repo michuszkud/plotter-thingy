@@ -148,7 +148,10 @@ right.go()
 
 time.sleep(3)
 
-pwm.stop()
+left.stop()
+right.stop()
+
+#pwm.stop()
 
 GPIO.cleanup()
 
